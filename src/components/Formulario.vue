@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box formulario">
     <div class="columns">
       <div
         class="column is-8"
@@ -10,58 +10,50 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
+          v-model="state.descricaoTarefa"
         />
       </div>
       <div class="column">
-        <div class="is-flex is-align-items-center is-justify-content-space-between">
-          <Cronometro :tempoEmSegundos="state.tempoEmSegundos" />
-          <button class="button" @click="iniciarContagem">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span>play</span>
-          </button>
-          <button class="button" @click="finalizarContagem">
-            <span class="icon">
-              <i class="fas fa-stop"></i>
-            </span>
-            <span>stop</span>
-          </button>
-        </div>
+        <Temporizador @aoTemporizadorFinalizado="finalizarTarefa"/>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from "vue";
+import {reactive, defineComponent } from "vue";
 
-import Cronometro from "@/components/Cronometro.vue";
+import Temporizador from "@/components/Temporizador.vue";
 
 export default defineComponent({
   components: {
-    Cronometro
+    Temporizador
   },
 
-  setup() {
+  setup(_, {emit}){
     const state = reactive({
-      tempoEmSegundos: 0,
-      cronometro: 0
-    });
+      descricaoTarefa: ""
+    })
 
-    function iniciarContagem() {
-      state.cronometro = setInterval(() => {
-        state.tempoEmSegundos += 1
-      }, 1000);
+    function finalizarTarefa(tempoDecorrido: number) : void {
+      emit("aoSalvarTarefa", {
+        duracaoEmSegundos: tempoDecorrido,
+        descricao: state.descricaoTarefa
+      });
+      state.descricaoTarefa = "";
     }
-    function finalizarContagem() {
-      clearInterval(state.cronometro)
-    }
+
     return {
       state,
-      iniciarContagem,
-      finalizarContagem,
-    };
-  },
+      finalizarTarefa
+    }
+  }
 });
 </script>
+
+<style>
+  .formulario {
+    color: var(--texto-primario);
+    background-color: var(--bg-primario);
+  }
+</style>

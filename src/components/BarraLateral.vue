@@ -3,14 +3,38 @@
     <h1>
       <img src="../assets/logo.png" alt="logo" />
     </h1>
+    <button class="button" @click="alterarTema">
+      {{ textoBotao }}
+    </button>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { reactive, defineComponent, computed } from "vue";
 
 export default defineComponent({
-  
+    setup(_, {emit}){
+      const state = reactive({
+        modoEscuroAtivo: false
+      });
+
+      const textoBotao = computed(() => {
+        if(state.modoEscuroAtivo){
+          return "Ativar light mode 🌞"
+        }
+        return "Ativar dark mode 🌜"
+      })
+
+      function alterarTema(){
+        state.modoEscuroAtivo = !state.modoEscuroAtivo;
+        emit("aoTemaAlterado", state.modoEscuroAtivo)
+      }
+      return {
+        state,
+        textoBotao,
+        alterarTema
+      }
+    }
 });
 </script>
 
