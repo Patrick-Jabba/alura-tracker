@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "backend": "json-server --watch db/db.json"
+    "backend": "json-server --watch db.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
