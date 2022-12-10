@@ -1,0 +1,30 @@
+{
+  "projetos": [
+    {
+      "id": 1,
+      "nome": "Alura Tracker 3.0"
+    },
+    {
+      "id": 2,
+      "nome": "Byte Bank"
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "descricao": "Configuração do ambiente",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker 3.0"
+      }
+    },
+    {
+      "descricao": "Método Update pelo Vuex",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker 3.0"
+      },
+      "id": 2
+    }
+  ]
+}

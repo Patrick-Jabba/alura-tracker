@@ -23,8 +23,8 @@ import router from "@/router";
 
 import useStore from "@/store";
 import toast from "@/utils/toast";
-import { ADICIONA_PROJETO, ALTERA_PROJETO } from "@/store/tipo-mutacoes";
 import { TipoNotification } from "@/interfaces/INotification";
+import { POST_PROJETO, UPDATE_PROJETO } from "@/store/type-actions";
 
 export default defineComponent({
   props: {
@@ -37,31 +37,48 @@ export default defineComponent({
     const store = useStore();
     const state = reactive({
       nomeDoProjeto: "",
+      dataCriacao: "",
     });
 
     onMounted(() => {
       if (props.id) {
-        const projeto = store.state.projetos.find((proj) => proj.id === props.id);
+        const projeto = store.state.projetos.find(
+          (proj) => proj.id === props.id
+        );
         state.nomeDoProjeto = projeto?.nome || "";
       }
     });
 
     function salvarProjeto() {
       if (props.id) {
-        store.commit(ALTERA_PROJETO, {
+        store.dispatch(UPDATE_PROJETO, {
           id: props.id,
           nome: state.nomeDoProjeto,
         });
+        handleSuccess();
+        router.push({ name: "projetos" });
       } else {
-        if(!state.nomeDoProjeto){
-          toast.notificar(TipoNotification.FALHA, "Oops!", "Seu projeto precisa de um nome.");
+        if (!state.nomeDoProjeto) {
+          toast.notificar(
+            TipoNotification.FALHA,
+            "Oops!",
+            "Seu projeto precisa de um nome."
+          );
           return;
         }
-        store.commit(ADICIONA_PROJETO, state.nomeDoProjeto);
+        store.dispatch(POST_PROJETO, state.nomeDoProjeto);
+        handleSuccess();
+        router.push({ name: "projetos" });
       }
       state.nomeDoProjeto = "";
-      toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Prontinho ;) Seu projeto foi criado.")
-      router.push({ name: "projetos" });
+    }
+
+    function handleSuccess() {
+      toast.notificar(
+        TipoNotification.SUCESSO,
+        "Sucesso!",
+        "Prontinho ;) Seu projeto foi criado."
+      );
     }
 
     return {
@@ -73,7 +90,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  label {
-    color: var(--texto-primario);
-  }
+label {
+  color: var(--texto-primario);
+}
 </style>

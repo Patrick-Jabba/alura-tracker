@@ -14,7 +14,7 @@
       <div>
         <button
           class="button ml-2"
-          @click="editarTarefa(tarefa.id)"
+          @click="editarTarefaSelecionada"
           title="Editar Título"
         >
           <span class="icon is-small">
@@ -44,8 +44,8 @@ import Cronometro from "./Cronometro.vue";
 import ITarefa from "@/interfaces/ITarefa";
 
 import useStore from "@/store/index";
-import { EXCLUIR_TAREFA, NOTIFICAR } from "@/store/tipo-mutacoes";
 import { TipoNotification } from "@/interfaces/INotification";
+import { EXCLUIR_TAREFA, NOTIFICAR } from "@/store/tipo-mutacoes";
 
 export default defineComponent({
   components: { Cronometro, Box },
@@ -56,7 +56,7 @@ export default defineComponent({
     },
   },
 
-  setup(){
+  setup(props, {emit}){
     const store = useStore();
 
     const tarefas = computed(() => {
@@ -71,9 +71,14 @@ export default defineComponent({
       })
     }
 
+    function editarTarefaSelecionada(): void{
+      emit("editarTarefa", props.tarefa)
+    }
+
     return {
       tarefas,
-      excluirTarefa
+      excluirTarefa,
+      editarTarefaSelecionada,
     }
   }
 });
