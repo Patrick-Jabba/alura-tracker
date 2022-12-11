@@ -6,7 +6,7 @@
     },
     {
       "id": 2,
-      "nome": "Byte Bank"
+      "nome": "teste 3466"
     }
   ],
   "tarefas": [
@@ -25,6 +25,33 @@
         "nome": "Alura Tracker 3.0"
       },
       "id": 2
+    },
+    {
+      "duracaoEmSegundos": 0,
+      "descricao": "Tarefinha de farofa",
+      "projeto": {
+        "nome": "Teste",
+        "id": 3
+      },
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 0,
+      "descricao": "",
+      "projeto": {
+        "id": 2,
+        "nome": "teste 3466"
+      },
+      "id": 4
+    },
+    {
+      "duracaoEmSegundos": 1,
+      "descricao": "teste",
+      "projeto": {
+        "id": 2,
+        "nome": "teste 3466"
+      },
+      "id": 5
     }
   ]
 }

@@ -27,7 +27,7 @@ export const store = createStore<State>({
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto: string) {
       const projeto = {
-        nome: nomeDoProjeto.toUpperCase(),
+        nome: nomeDoProjeto,
       } as IProjeto
       state.projetos.push(projeto);
     },

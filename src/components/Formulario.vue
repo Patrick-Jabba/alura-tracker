@@ -55,9 +55,7 @@ export default defineComponent({
       descricaoTarefa: "",
       idProjeto: "",
     });
-    const projetos = computed(() => {
-      return store.state.projetos;
-    });
+    const projetos = computed(() => store.state.projetos);
 
     function salvarTarefa(tempoDecorrido: number): void {
       const projeto = store.state.projetos.find(

@@ -4,6 +4,7 @@
       <div class="field">
         <label for="nomeDoProjeto" class="label"> Nome do projeto </label>
         <input
+          placeholder="Digite o nome do projeto"
           type="text"
           class="input"
           v-model="state.nomeDoProjeto"
@@ -21,8 +22,9 @@
 import { reactive, defineComponent, onMounted } from "vue";
 import router from "@/router";
 
-import useStore from "@/store";
 import toast from "@/utils/toast";
+
+import useStore from "@/store";
 import { TipoNotification } from "@/interfaces/INotification";
 import { POST_PROJETO, UPDATE_PROJETO } from "@/store/type-actions";
 
@@ -42,43 +44,34 @@ export default defineComponent({
 
     onMounted(() => {
       if (props.id) {
-        const projeto = store.state.projetos.find(
-          (proj) => proj.id === props.id
-        );
+        const projeto = store.state.projetos.find(proj => proj.id === props.id);
         state.nomeDoProjeto = projeto?.nome || "";
       }
+      console.log(state.nomeDoProjeto, "do update")
     });
 
     function salvarProjeto() {
       if (props.id) {
+        if (!state.nomeDoProjeto) {
+          toast.notificar(TipoNotification.FALHA, "Oops!", "Seu projeto precisa de um nome.");
+          return;
+        }
         store.dispatch(UPDATE_PROJETO, {
           id: props.id,
           nome: state.nomeDoProjeto,
         });
-        handleSuccess();
+        toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Prontinho ;) Seu projeto foi alterado com sucesso.");
         router.push({ name: "projetos" });
       } else {
         if (!state.nomeDoProjeto) {
-          toast.notificar(
-            TipoNotification.FALHA,
-            "Oops!",
-            "Seu projeto precisa de um nome."
-          );
+          toast.notificar(TipoNotification.FALHA, "Oops!", "Seu projeto precisa de um nome.");
           return;
         }
         store.dispatch(POST_PROJETO, state.nomeDoProjeto);
-        handleSuccess();
+        toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Prontinho ;) Seu projeto foi criado.");
         router.push({ name: "projetos" });
       }
       state.nomeDoProjeto = "";
-    }
-
-    function handleSuccess() {
-      toast.notificar(
-        TipoNotification.SUCESSO,
-        "Sucesso!",
-        "Prontinho ;) Seu projeto foi criado."
-      );
     }
 
     return {
