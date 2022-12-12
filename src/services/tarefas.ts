@@ -2,8 +2,8 @@ import ITarefa from "@/interfaces/ITarefa";
 import { AxiosInstance } from "axios";
 
 export default (httpClient: AxiosInstance) => ({
-  getTarefas: async () => {
-    const response = await httpClient.get("tarefas");
+  getTarefas: async (url: string) => {
+    const response = await httpClient.get(url);
 
     return {
       data: response.data
@@ -22,5 +22,8 @@ export default (httpClient: AxiosInstance) => ({
     return { 
       data: response.data
     }
+  },
+  deleteTarefa: async (id: string) => {
+    await httpClient.delete(`tarefas/${id}`);
   }
 })

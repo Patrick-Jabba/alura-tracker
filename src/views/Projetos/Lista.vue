@@ -19,7 +19,7 @@
             <td>{{ projeto.id }}</td>
             <td> {{ projeto.nome }}</td>
             <td> 
-              <RouterLink :to="`/${projeto.id}`" class="button" title="Editar Projeto">
+              <RouterLink :to="`/${projeto.id}`" class="button" title="Editar Título do Projeto">
                 <span class="icon is-small">
                   <i class="fas fa-pencil-alt"></i>
                 </span>
@@ -44,15 +44,15 @@ import fns from "@/utils/dateFormat";
 import useStore from "@/store"
 import toast from "@/utils/toast";
 
-import { DELETE_PROJETO, GET_PROJETOS } from "@/store/type-actions";
 import { TipoNotification } from "@/interfaces/INotification";
+import { DELETE_PROJETO, GET_PROJETOS } from "@/store/type-actions";
 
 export default defineComponent({
   setup() {
     const store = useStore();
     store.dispatch(GET_PROJETOS)
    
-    const projetos = computed(() => { return store.state.projetos});
+    const projetos = computed(() => store.state.projeto.projetos);
 
     async function excluir(id: string){
       store.dispatch(DELETE_PROJETO, id);

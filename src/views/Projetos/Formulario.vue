@@ -44,10 +44,9 @@ export default defineComponent({
 
     onMounted(() => {
       if (props.id) {
-        const projeto = store.state.projetos.find(proj => proj.id === props.id);
+        const projeto = store.state.projeto.projetos.find(proj => proj.id == props.id);
         state.nomeDoProjeto = projeto?.nome || "";
       }
-      console.log(state.nomeDoProjeto, "do update")
     });
 
     function salvarProjeto() {

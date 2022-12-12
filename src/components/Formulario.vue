@@ -43,6 +43,7 @@ import toast from "@/utils/toast";
 
 import Temporizador from "@/components/Temporizador.vue";
 import { TipoNotification } from "@/interfaces/INotification";
+import { GET_PROJETOS } from "@/store/type-actions";
 
 export default defineComponent({
   components: {
@@ -55,10 +56,12 @@ export default defineComponent({
       descricaoTarefa: "",
       idProjeto: "",
     });
-    const projetos = computed(() => store.state.projetos);
+    store.dispatch(GET_PROJETOS);
+    const projetos = computed(() => store.state.projeto.projetos);
+
 
     function salvarTarefa(tempoDecorrido: number): void {
-      const projeto = store.state.projetos.find(
+      const projeto = store.state.projeto.projetos.find(
         (proj) => proj.id === state.idProjeto
       );
       if (!projeto) {
@@ -73,8 +76,6 @@ export default defineComponent({
       toast.notificar(TipoNotification.SUCESSO, "Sucesso", "Tarefa criada com êxito!")
       state.descricaoTarefa = "";
     }
-
-    
 
     return {
       state,

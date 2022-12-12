@@ -44,8 +44,10 @@ import Cronometro from "./Cronometro.vue";
 import ITarefa from "@/interfaces/ITarefa";
 
 import useStore from "@/store/index";
+import toast from "@/utils/toast";
+
+import { DELETE_TAREFA } from "@/store/type-actions";
 import { TipoNotification } from "@/interfaces/INotification";
-import { EXCLUIR_TAREFA, NOTIFICAR } from "@/store/tipo-mutacoes";
 
 export default defineComponent({
   components: { Cronometro, Box },
@@ -59,16 +61,11 @@ export default defineComponent({
   setup(props, {emit}){
     const store = useStore();
 
-    const tarefas = computed(() => {
-      return store.state.tarefas} )
+    const tarefas = computed(() => store.state.tarefa.tarefas);    
 
     function excluirTarefa(id: string){
-      store.commit(EXCLUIR_TAREFA, id);
-      store.commit(NOTIFICAR, {
-        titulo: "Exclusão de Tarefa",
-        texto: "Tarefa excluída com sucesso!",
-        tipo: TipoNotification.SUCESSO
-      })
+      store.dispatch(DELETE_TAREFA, id);
+      toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Projeto excluído com êxito!");
     }
 
     function editarTarefaSelecionada(): void{
