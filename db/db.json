@@ -5,35 +5,68 @@
       "nome": "Alura Tracker 3.0"
     },
     {
-      "nome": "Teste",
-      "id": 2
+      "id": 2,
+      "nome": "C# Iniciando a Linguagem"
+    },
+    {
+      "nome": "C# Orientação a Objetos",
+      "id": 3
     }
   ],
   "tarefas": [
     {
-      "id": 1,
-      "descricao": "Configuração do ambiente",
+      "duracaoEmSegundos": 1686,
+      "descricao": "Tipos da linguagem",
       "projeto": {
-        "id": 1,
-        "nome": "Alura Tracker 3.0"
-      }
-    },
-    {
-      "descricao": "Método Update pelo Vuex",
-      "projeto": {
-        "id": 1,
-        "nome": "Alura Tracker 3.0"
+        "id": 2,
+        "nome": "C# Iniciando a Linguagem"
       },
-      "id": 2
+      "id": 7
     },
     {
-      "duracaoEmSegundos": 10,
-      "descricao": "Vuex",
+      "duracaoEmSegundos": 2627,
+      "descricao": "Condicionais",
       "projeto": {
-        "nome": "VueJS",
+        "id": 2,
+        "nome": "C# Iniciando a Linguagem"
+      },
+      "id": 8
+    },
+    {
+      "duracaoEmSegundos": 474,
+      "descricao": "Escopo",
+      "projeto": {
+        "id": 2,
+        "nome": "C# Iniciando a Linguagem"
+      },
+      "id": 9
+    },
+    {
+      "duracaoEmSegundos": 314,
+      "descricao": "Laços de repetição",
+      "projeto": {
+        "id": 2,
+        "nome": "C# Iniciando a Linguagem"
+      },
+      "id": 10
+    },
+    {
+      "duracaoEmSegundos": 470,
+      "descricao": "Laço for",
+      "projeto": {
+        "id": 2,
+        "nome": "C# Iniciando a Linguagem"
+      },
+      "id": 11
+    },
+    {
+      "duracaoEmSegundos": 1613,
+      "descricao": "Criando Classes",
+      "projeto": {
+        "nome": "C# Orientação a Objetos",
         "id": 3
       },
-      "id": 6
+      "id": 12
     }
   ]
 }
