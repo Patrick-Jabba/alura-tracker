@@ -55,8 +55,9 @@ export default defineComponent({
     const projetos = computed(() => store.state.projeto.projetos);
 
     async function excluir(id: string){
+      const projeto = projetos.value.find(p => p.id === id)
       store.dispatch(DELETE_PROJETO, id);
-      toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Projeto excluído com êxito!");
+      toast.notificar(TipoNotification.SUCESSO, "Sucesso!", `Projeto ${projeto?.nome} excluído com êxito!`);
     }
 
     return {
@@ -67,3 +68,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+
+tr:nth-child(even) {background: #DDD}
+tr:nth-child(odd) {background: #FFF}
+</style>

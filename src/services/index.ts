@@ -3,7 +3,7 @@ import ProjetoService from "./projetos";
 import TarefaService from "./tarefas";
 
 const httpClient: AxiosInstance = axios.create({
-  baseURL: "http://localhost:3000/"
+  baseURL: "http://localhost:5182"
 })
 
 export default {

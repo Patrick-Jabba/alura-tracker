@@ -22,11 +22,12 @@
 import { reactive, defineComponent, onMounted } from "vue";
 import router from "@/router";
 
+import delay from "@/utils/delay";
 import toast from "@/utils/toast";
 
 import useStore from "@/store";
 import { TipoNotification } from "@/interfaces/INotification";
-import { POST_PROJETO, UPDATE_PROJETO } from "@/store/type-actions";
+import { GET_PROJETOS, POST_PROJETO, UPDATE_PROJETO } from "@/store/type-actions";
 
 export default defineComponent({
   props: {
@@ -49,8 +50,9 @@ export default defineComponent({
       }
     });
 
-    function salvarProjeto() {
-      if (props.id) {
+    async function salvarProjeto() {
+      try {
+        if (props.id) {
         if (!state.nomeDoProjeto) {
           toast.notificar(TipoNotification.FALHA, "Oops!", "Seu projeto precisa de um nome.");
           return;
@@ -60,7 +62,6 @@ export default defineComponent({
           nome: state.nomeDoProjeto,
         });
         toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Prontinho ;) Seu projeto foi alterado com sucesso.");
-        router.push({ name: "projetos" });
       } else {
         if (!state.nomeDoProjeto) {
           toast.notificar(TipoNotification.FALHA, "Oops!", "Seu projeto precisa de um nome.");
@@ -68,9 +69,15 @@ export default defineComponent({
         }
         store.dispatch(POST_PROJETO, state.nomeDoProjeto);
         toast.notificar(TipoNotification.SUCESSO, "Sucesso!", "Prontinho ;) Seu projeto foi criado.");
-        router.push({ name: "projetos" });
       }
-      state.nomeDoProjeto = "";
+      state.nomeDoProjeto = "";      
+      } catch (error) {
+        console.log(error);
+      } finally {
+          await delay(500);
+          store.dispatch(GET_PROJETOS);
+          router.push({ name: "projetos" });
+      }
     }
 
     return {
